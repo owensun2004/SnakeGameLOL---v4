@@ -14,7 +14,7 @@ body {
   font-size: 20px;
 }
 #board{
-  border: 10px solid black;
+  border: 25px solid black;
   grid-column-start: 1;
   grid-column-end: 7;
 }

@@ -16,6 +16,13 @@ var snakeBody = [];
  
 var foodX=[];
 var foodY=[];
+var xAppleCord;
+var yAppleCord;
+
+var bombX=[];
+var bombY=[];
+var xCord;
+var yCord;
  
 var gameOver = false;
 
@@ -58,6 +65,14 @@ if(getCookie("apple")==""){
 }
 console.log(appleCount);
 var appleTemp=appleCount;
+
+var bombCount;
+if(getCookie("bomb")==""){
+    bombCount=0;
+}else{
+    bombCount=parseInt(getCookie("bomb"));
+}
+console.log(bombCount);
  
 window.onload = function () {
     // Set board height and width
@@ -68,6 +83,7 @@ window.onload = function () {
     context = board.getContext("2d");
     document.querySelector("#point").innerHTML = score;
     placeFood();
+    placeBomb();
     document.addEventListener("keyup", changeDirection);  //for movements
     // Set snake speed
     game = setInterval(update, setSpeed);
@@ -138,6 +154,7 @@ function reset(){
     document.querySelector("#point").innerHTML = score;
     clearInterval(game);
     placeFood();
+    placeBomb();
     game=setInterval(update, setSpeed);
     closePopUp();
     
@@ -183,6 +200,11 @@ function update() {
         
         context.fillRect(foodX[i], foodY[i], blockSize, blockSize);
     }
+    //Set bomb color and position
+    context.fillStyle = "black";
+    for(let i=0;i<bombX.length;i++){
+        context.fillRect(bombX[i], bombY[i], blockSize, blockSize);
+    }
     //console.log(foodX);
     //console.log(foodY);
     for(let i=0;i<foodX.length;i++){
@@ -192,7 +214,7 @@ function update() {
             foodY.splice(i, 1);
             score+=1;
             document.querySelector("#point").innerHTML = score;
-            console.log(appleTemp);
+            //console.log(appleTemp);
             
             appleTemp--;
             if(appleTemp==0){
@@ -247,6 +269,16 @@ function update() {
             //alert("Game Over\nScore: "+ score);
         }
     }
+
+    for(let i=0;i<bombX.length;i++){
+        if(snakeX==bombX[i]&&snakeY==bombY[i]){
+            gameOver = true;
+            pauseBut.classList.add('acti');
+            displayScore();
+            document.querySelector("#point2").innerHTML = score;
+            openPopUp();
+        }
+    }
 }
  
 // Movement of the Snake - We are using addEventListener
@@ -289,13 +321,65 @@ function placeFood() {
     foodX=[];
     foodY=[];
     for(let i=0;i<appleCount;i++){
+        xAppleCord=Math.floor(Math.random() * total_col) * blockSize;
+        yAppleCord=Math.floor(Math.random() * total_col) * blockSize;
+        while(checkApple(xAppleCord, yAppleCord)!=1){
+            xAppleCord=Math.floor(Math.random() * total_col) * blockSize;
+            yAppleCord=Math.floor(Math.random() * total_col) * blockSize;
+        }
         // in x coordinates.
-        foodX.push(Math.floor(Math.random() * total_col) * blockSize) ;
+        foodX.push(xAppleCord) ;
         
         //in y coordinates.
-        foodY.push(Math.floor(Math.random() * total_row) * blockSize) ;
+        foodY.push(yAppleCord) ;
     }
+    //console.log(foodX);
+    //console.log(foodY);
     
+}
+
+function checkApple(x, y){
+    if(x==snakeX&&y==snakeY){
+        return 0;
+    }
+    for(let i=0;i<bombX.length;i++){
+        if(x==bombX[i]&&y==bombY[i]){
+            return 0;
+        }
+        
+    }
+    return 1;
+}
+
+function placeBomb(){
+    bombX=[];
+    bombY=[];
+    for(let i=0;i<bombCount;i++){
+        xCord=Math.floor(Math.random() * total_col) * blockSize;
+        yCord=Math.floor(Math.random() * total_col) * blockSize;
+        while(checkBomb(xCord, yCord)!=1){
+            xCord=Math.floor(Math.random() * total_col) * blockSize;
+            yCord=Math.floor(Math.random() * total_col) * blockSize;
+        }
+        bombX.push(xCord);
+        bombY.push(yCord);
+    }
+    //console.log(bombX);
+    //console.log(bombY);
+
+}
+
+function checkBomb(x, y){
+    if(x==snakeX&&y==snakeY){
+        return 0;
+    }
+    for(let i=0;i<foodX.length;i++){
+        if(x==foodX[i]&&y==foodY[i]){
+            return 0;
+        }
+        
+    }
+    return 1;
 }
 
 let bu=document.getElementById("stats");

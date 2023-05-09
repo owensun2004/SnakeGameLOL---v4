@@ -4,13 +4,55 @@ var output= document.getElementById("demo");
 var snakeSpeed=0;
 //document.cookie="speed=0;";
 var apples=document.querySelector("#fname");
-//var bombs=document...
-var submitBTN=document.querySelector("#chg");
-
+var bombs=document.querySelector("#lname");
+//var submitBTN=document.querySelector("#back");
+/*
 submitBTN.addEventListener("click", () => {
-  document.cookie="apple="+apples.value+";";
+  let temp;
+  if(apples.value>20){
+    document.cookie="apple="+20+";";
+    temp=20;
+  }else if(apples.value<1){
+    document.cookie="apple="+1+";";
+    temp=1;
+  }else{
+    document.cookie="apple="+apples.value+";";
+    temp=parseInt(apples.value);
+  }
+  return temp;
+  
+  
   //document.cookie="bomb="+bombs.value+";";
 });
+*/
+
+function pressBackApple(){
+  
+  if(apples.value>20){
+    document.cookie="apple="+20+";";
+    
+  }else if(apples.value<1){
+    document.cookie="apple="+1+";";
+    
+  }else{
+    document.cookie="apple="+apples.value+";";
+    
+  }
+  
+}
+function pressBackBomb(){
+  if(bombs.value>10){
+    document.cookie="bomb="+10+";";
+    
+  }else if(apples.value<0){
+    document.cookie="bomb="+0+";";
+    
+  }else{
+    document.cookie="bomb="+bombs.value+";";
+    
+  }
+}
+
 
 function changeSpeed(){
   output.innerHTML = slider.value;

@@ -57,12 +57,11 @@
   <div id="apple" class="grid-item">
     <form>
       <label for="fname">Enter Number of Apples:</label><br>
-      <input type="text" id="fname" name="fname"><br>
+      <input type="number" id="fname" name="fname" value="1" min="1" max="20" oninput="pressBackApple()"><br>
       <label for="lname">Enter Number of Bombs:</label><br>
-      <input type="text" id="lname" name="lname">
+      <input type="number" id="lname" name="lname" value="0" min="0" max="10" oninput="pressBackBomb()">
       
     </form>
-    <button id="chg">Change</button>
   </div>
   </div>
     <script src="homescript.js"></script>
