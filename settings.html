@@ -11,6 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/Jquery library/jquery-3.6.4.min.js"></script>
   </head>
   <body>
     <div id="setpage">
@@ -56,9 +57,17 @@
   </div>
   <div id="apple" class="grid-item">
     <form>
-      <label for="fname">Enter Number of Apples:</label><br>
+      <label for="fname">
+        <span lang="es">Entrez les nombreux de pommes:</span>
+        <span lang="en">Enter number of apples:</span>
+        <span lang="z">请输入苹果数量:</span>
+      </label><br>
       <input type="number" id="fname" name="fname" value="1" min="1" max="20" oninput="pressBackApple()"><br>
-      <label for="lname">Enter Number of Bombs:</label><br>
+      <label for="lname">
+        <span lang="es">Entrez les nombreux de bombs:</span>
+        <span lang="en">Enter number of bombs:</span>
+        <span lang="z">请输入炸弹数量:</span>
+      </label><br>
       <input type="number" id="lname" name="lname" value="0" min="0" max="10" oninput="pressBackBomb()">
       
     </form>

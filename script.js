@@ -53,7 +53,12 @@ if(getCookie("speed")==""){
     setSpeed=getCookie("speed");
 }
 
-var setLang=getCookie("lang");
+var setLang;
+if(getCookie("lang")==""){
+    setLang="0";
+}else{
+    setLang=getCookie("lang");
+}
 console.log(setSpeed);
 console.log(setLang);
 
